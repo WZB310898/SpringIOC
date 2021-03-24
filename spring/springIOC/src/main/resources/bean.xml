@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--配置service -->
+
+    <bean id="atguiguService" class="com.v6.service.Impl.AtguiguServiceImpl">
+        <!--注入dao-->
+        <property name="atguiguDao" ref="atguiguDao"></property>
+    </bean>
+
+    <bean id="atguiguDao" class="com.v6.dao.Impl.AtguiguDaoImpl">
+        <!--注入queryRunner-->
+        <property name="queryRunner" ref="queryRunner"></property>
+    </bean>
+
+
+    <bean id="queryRunner" class="org.apache.commons.dbutils.QueryRunner" scope="prototype">
+        <!--注入数据源-->
+        <constructor-arg name="ds" ref="dataSource"></constructor-arg>
+    </bean>
+
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+         <!--连接数据库的必备信息-->
+        <property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/mysql"></property>
+        <property name="user" value="root"></property>
+        <property name="password" value="*panzer310898"></property>
+    </bean>
+
+</beans>
